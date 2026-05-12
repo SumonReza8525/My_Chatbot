@@ -1,4 +1,7 @@
-const Messages = ({ sender, message }) => {
+const Messages = ({ chat }) => {
+  const { sender, message } = chat;
+  console.log(chat);
+
   const image =
     sender === "user"
       ? "avatar.png"
