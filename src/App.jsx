@@ -5,40 +5,41 @@ import { useState } from "react";
 
 const App = () => {
   const [isTop, setIstop] = useState("top");
+  const [updateData, setUpdateData] = useState([]);
 
   const handleInput = () => {
     setIstop(isTop === "top" ? "down" : isTop === "down" ? "top" : "");
   };
 
-  const chatMessages = [
-    { message: "hello chatbot?", sender: "user", id: 1 },
-    { message: "Hello!,How can i help you?", sender: "robot", id: 2 },
-    {
-      message: "can you get me today's date?",
-      sender: "user",
-      id: 3,
-    },
-    {
-      message: "Today is May 12",
-      sender: "robot",
-      id: 4,
-    },
-  ];
+  // const chatMessages = [
+  //   { message: "hello chatbot?", sender: "user", id: 1 },
+  //   { message: "Hello!,How can i help you?", sender: "robot", id: 2 },
+  //   {
+  //     message: "can you get me today's date?",
+  //     sender: "user",
+  //     id: 3,
+  //   },
+  //   {
+  //     message: "Today is May 12",
+  //     sender: "robot",
+  //     id: 4,
+  //   },
+  // ];
 
-  const reverseChat = [...chatMessages].reverse();
+  const reverseChat = [...updateData].reverse();
 
   return (
-    <div className="   flex flex-col justify-center items-center">
+    <div className="flex flex-col justify-center items-center">
       <p className="text-2xl font-semibold mb-5">My ChatBot</p>
       <div
-        className={`border-2 flex   py-2 px-4 rounded-2xl ${isTop === "top" ? "flex-col" : "flex-col-reverse"}  border-amber-400`}
+        className={`border-2 flex w-120  py-2 px-4 rounded-2xl ${isTop === "top" ? "flex-col" : "flex-col-reverse"}  border-amber-400`}
       >
         {/* input filed & arrow */}
 
         <div
           className={` flex  ${isTop === "top" ? "flex-col-reverse" : "flex-col"}`}
         >
-          <InputMessage></InputMessage>
+          <InputMessage setUpdateData={setUpdateData}></InputMessage>
           <div
             onClick={handleInput}
             className="  w-fit flex justify-center mx-auto cursor-pointer"
@@ -61,12 +62,14 @@ const App = () => {
         </div>
 
         {/* Chat mesaages */}
-        <div className="space-y-2.5 ">
+        <div
+          className={`space-y-2.5 flex w-full h-80 ${isTop === "top" ? "flex-col" : "flex-col-reverse"} overflow-y-auto scrollbar-thin`}
+        >
           {isTop === "top"
             ? reverseChat.map((chat) => {
                 return <Messages key={chat.id} chat={chat}></Messages>;
               })
-            : chatMessages.map((chat) => {
+            : reverseChat.map((chat) => {
                 return <Messages key={chat.id} chat={chat}></Messages>;
               })}
         </div>
