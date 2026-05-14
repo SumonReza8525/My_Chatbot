@@ -10,6 +10,14 @@ const InputMessage = ({ setUpdateData }) => {
         { message: inputData, sender: "user", id: crypto.randomUUID() },
       ]);
     }
+    setUpdateData((prev) => [
+      ...prev,
+      {
+        message: "How can i help you?",
+        sender: "robot",
+        id: crypto.randomUUID(),
+      },
+    ]);
     setInputData("");
   };
 

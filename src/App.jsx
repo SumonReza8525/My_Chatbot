@@ -11,21 +11,6 @@ const App = () => {
     setIstop(isTop === "top" ? "down" : isTop === "down" ? "top" : "");
   };
 
-  // const chatMessages = [
-  //   { message: "hello chatbot?", sender: "user", id: 1 },
-  //   { message: "Hello!,How can i help you?", sender: "robot", id: 2 },
-  //   {
-  //     message: "can you get me today's date?",
-  //     sender: "user",
-  //     id: 3,
-  //   },
-  //   {
-  //     message: "Today is May 12",
-  //     sender: "robot",
-  //     id: 4,
-  //   },
-  // ];
-
   const reverseChat = [...updateData].reverse();
 
   return (
