@@ -1,7 +1,7 @@
 import { ArrowBigDown, ArrowBigUp } from "lucide-react";
 import InputMessage from "./InputMessage";
 import Messages from "./Messages";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const App = () => {
   const [isTop, setIstop] = useState("top");
@@ -13,6 +13,15 @@ const App = () => {
 
   const reverseChat = [...updateData].reverse();
 
+  const container = useRef(null);
+  useEffect(() => {
+    const containerElem = container.current;
+    if (containerElem && isTop === "down") {
+      containerElem.scrollTop = containerElem.scrollHeight;
+    } else if (containerElem && isTop === "top") {
+      containerElem.scrollTop = 0;
+    }
+  }, [updateData, isTop]);
   return (
     <div className="flex flex-col justify-center items-center">
       <p className="text-2xl font-semibold mb-5">My ChatBot</p>
@@ -48,7 +57,8 @@ const App = () => {
 
         {/* Chat mesaages */}
         <div
-          className={`space-y-2.5 flex w-full h-80 ${isTop === "top" ? "flex-col" : "flex-col-reverse"} overflow-y-auto scrollbar-thin`}
+          ref={container}
+          className={`space-y-2.5 flex w-full h-100 ${isTop === "top" ? "flex-col" : "flex-col-reverse"} overflow-y-auto scrollbar-none`}
         >
           {isTop === "top"
             ? reverseChat.map((chat) => {
